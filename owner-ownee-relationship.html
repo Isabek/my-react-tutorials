@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>React Owner Ownee Relationship!</title>
+    <script src="http://fb.me/react-0.11.1.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+</head>
+<body>
+<script type="text/jsx">
+	/** @jsx React.DOM */
+	var App = React.createClass({
+		getInitialState: function(){
+			return {
+				txt: "initial txt prop's text"
+			};
+		},
+		updateTxt: function(e){
+			this.setState({txt: e.target.value});
+		},
+		render: function(){
+			return (
+				<div>
+				<Widget txt={this.state.txt} update={this.updateTxt}/>
+				</div>
+				);
+		}
+	});
+
+	var Widget = React.createClass({
+		render: function(){
+			return (
+				<div>
+					<input type="text" onChange={this.props.update}/>
+					<h1>{this.props.txt}</h1>
+				</div>
+				);
+		}
+	});
+
+	React.renderComponent(<App/>, document.body);
+
+</script>
+</body>
+</html>
