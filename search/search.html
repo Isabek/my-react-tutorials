@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <title>React-Search Component</title>
+    <script src="http://fb.me/react-0.11.1.js"></script>
+    <script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+<script type="text/jsx">
+	/** @jsx React.DOM */
+	var SearchApp = React.createClass({
+		getInitialState: function(){
+			return {
+				searchText: ''
+			};
+		},
+		handleChange: function(e){
+			this.setState({searchText: e.target.value});
+		},
+		render: function(){
+
+			var libraries = this.props.items,
+				searchText = this.state.searchText.trim().toLowerCase();
+
+				if(searchText.length > 0){
+					libraries = libraries.filter(function(elem){
+						return elem.name.toLowerCase().match(searchText);
+					});
+				}
+
+			return (
+				<div>
+					<input type="text" onChange={this.handleChange} placeholder="Type here" />
+					<ul>
+						{libraries.map(function(elem, index){
+							return <li>{elem.name}<a href={elem.url}>{elem.url}</a></li>
+						})}
+					</ul>
+				</div>
+				);
+		}
+	});
+
+	var libraries = [
+
+	    { name: 'Backbone.js', url: 'http://documentcloud.github.io/backbone/'},
+	    { name: 'AngularJS', url: 'https://angularjs.org/'},
+	    { name: 'jQuery', url: 'http://jquery.com/'},
+	    { name: 'Prototype', url: 'http://www.prototypejs.org/'},
+	    { name: 'React', url: 'http://facebook.github.io/react/'},
+	    { name: 'Ember', url: 'http://emberjs.com/'},
+	    { name: 'Knockout.js', url: 'http://knockoutjs.com/'},
+	    { name: 'Dojo', url: 'http://dojotoolkit.org/'},
+	    { name: 'Mootools', url: 'http://mootools.net/'},
+	    { name: 'Underscore', url: 'http://documentcloud.github.io/underscore/'},
+	    { name: 'Lodash', url: 'http://lodash.com/'},
+	    { name: 'Moment', url: 'http://momentjs.com/'},
+	    { name: 'Express', url: 'http://expressjs.com/'},
+	    { name: 'Koa', url: 'http://koajs.com/'},
+
+	];
+
+	React.renderComponent(<SearchApp items={libraries}/>, document.body);
+
+</script>
+</body>
+</html>
