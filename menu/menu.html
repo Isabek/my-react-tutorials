@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>React-Timer</title>
+	<script src="http://fb.me/react-0.11.1.js"></script>
+	<script src="http://fb.me/JSXTransformer-0.11.1.js"></script>
+    <link type="text/css" rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<script type="text/jsx">
+	/** @jsx React.DOM */
+	var MenuApp = React.createClass({
+		getInitialState: function(){
+			return { focused : 0 };
+		},
+		clicked: function(index){
+			this.setState({focused:index});
+		},
+		render: function(){
+			var self = this;
+
+			return (
+				<div>
+					<ul>
+						{this.props.items.map(function(elem, index){
+							var style = '';
+							if(self.state.focused == index) style = 'focused';
+							return <li className={style} onClick={self.clicked.bind(self, index)}>{elem}</li>;
+						})}
+					</ul>
+					<p>Selected:{this.props.items[this.state.focused]}</p>
+				</div>
+				);
+		}
+	});
+
+	React.renderComponent(<MenuApp items={['Home', 'Services', 'About', 'Contact us']}/>, document.body);
+
+</script>
+</body>
+</html>
